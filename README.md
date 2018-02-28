@@ -1,0 +1,2 @@
+# AliyunDNSdomainNameResolution
+使用阿里云sdk域名解析到动态ip
