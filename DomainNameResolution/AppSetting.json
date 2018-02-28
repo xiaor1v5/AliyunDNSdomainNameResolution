@@ -1,0 +1,9 @@
+﻿{
+  "DomainRecordOptions": {
+    "RegionId": "cn-hangzhou",
+    "AccessKeyId": "your accessKeyId", //your accessKeyId
+    "AccessKeySecret": "your accessKeySecret", // your accessKeySecret
+    "DomainName": "xiaor.top",
+    "DomainType": "a"
+  }
+}

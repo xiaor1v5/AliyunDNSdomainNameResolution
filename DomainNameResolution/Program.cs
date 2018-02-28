@@ -1,12 +1,33 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DomainNameResolution
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main()
         {
-            Console.WriteLine("Hello World!");
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("AppSetting.json");
+
+            var configuration = builder.Build();
+
+            DomainRecordOptions domainRecordOptions = new DomainRecordOptions();
+
+            configuration.GetSection("DomainRecordOptions").Bind(domainRecordOptions);
+
+            DomainRecord domainRecord = new DomainRecord(domainRecordOptions);
+            int a = 0;
+            while (true)
+            {
+                Console.WriteLine(++a);
+                await domainRecord.CheckAndModify();
+                Thread.Sleep(30000);
+            }
         }
     }
 }

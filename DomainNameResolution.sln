@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainNameResolution", "DomainNameResolution\DomainNameResolution.csproj", "{0AA69AA2-13B9-4AE3-A186-9BB426F64F9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aliyun-net-sdk-alidns", "aliyun-net-sdk.alidns\aliyun-net-sdk-alidns.csproj", "{A429B256-BF67-485C-BF49-3C52FCC0F124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aliyun-net-sdk-core", "aliyun-net-sdk-core\aliyun-net-sdk-core.csproj", "{C0EC89EF-383E-47F2-82C7-E5B4C0DF4D6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{0AA69AA2-13B9-4AE3-A186-9BB426F64F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AA69AA2-13B9-4AE3-A186-9BB426F64F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AA69AA2-13B9-4AE3-A186-9BB426F64F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A429B256-BF67-485C-BF49-3C52FCC0F124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A429B256-BF67-485C-BF49-3C52FCC0F124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A429B256-BF67-485C-BF49-3C52FCC0F124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A429B256-BF67-485C-BF49-3C52FCC0F124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EC89EF-383E-47F2-82C7-E5B4C0DF4D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EC89EF-383E-47F2-82C7-E5B4C0DF4D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EC89EF-383E-47F2-82C7-E5B4C0DF4D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EC89EF-383E-47F2-82C7-E5B4C0DF4D6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
