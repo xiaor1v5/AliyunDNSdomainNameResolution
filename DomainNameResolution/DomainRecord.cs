@@ -30,6 +30,7 @@ namespace DomainNameResolution
         {
             Options = options;
             Init();
+            logger.LogInformation("DomainRecord init...");
         }
 
         private void Init()
