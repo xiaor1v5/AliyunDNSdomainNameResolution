@@ -6,45 +6,75 @@
  * 描述说明： 
  *
 *****************************************************************/
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace DomainNameResolution
 {
-    public class IPHelper
+    public static class IPHelper
     {
-        public static async Task<string> GetIP_Sohu()
+        private static readonly HttpClient client = new HttpClient();
+
+        public static async Task<string> GetIP_Sohu(ILogger logger)
         {
-            HttpClient client = new HttpClient();
-            var responseMessage = await client.GetAsync("http://pv.sohu.com/cityjson");
-            var responseStream = await responseMessage.Content.ReadAsStreamAsync();
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var encodeList = Encoding.GetEncodings();
-            var encode = Encoding.GetEncoding("gbk");
-            var responseText = new StreamReader(responseStream, encode).ReadToEnd();
+            CitySN ipObj = null;
+            try
+            {
+                var responseMessage = await client.GetAsync("http://pv.sohu.com/cityjson");
+                var responseStream = await responseMessage.Content.ReadAsStreamAsync();
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                var encodeList = Encoding.GetEncodings();
+                var encode = Encoding.GetEncoding("gbk");
+                var responseText = new StreamReader(responseStream, encode).ReadToEnd();
 
-            var startIndex = 18;
+                var startIndex = 18;
 
-            var ip = responseText.Substring(startIndex);
+                var ip = responseText.Substring(startIndex);
 
-            ip = ip.Trim();
-            ip = ip.Trim(';');
+                ip = ip.Trim();
+                ip = ip.Trim(';');
 
-            var ipObj = JsonConvert.DeserializeObject<CitySN>(ip);
-            return ipObj.cip;
+                ipObj = JsonConvert.DeserializeObject<CitySN>(ip);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return null;
+            }
+            
+            return ipObj?.cip;
         }
 
-        public static async Task<string> GetIP_Amazon()
+        public static async Task<string> GetIP_Amazon(ILogger logger)
         {
-            HttpClient client = new HttpClient();
-            var responseMessage = await client.GetAsync("http://checkip.amazonaws.com");
-            var responseString = (await responseMessage.Content.ReadAsStringAsync()).Trim('\n');
-            return responseString;
+            string ip = null;
+            try
+            {
+                var responseMessage = await client.GetAsync("http://checkip.amazonaws.com");
+                ip = (await responseMessage.Content.ReadAsStringAsync()).Trim('\n');
+                if (!IsIP(ip))
+                {
+                    throw new Exception("IP返回值异常");
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                ip = string.Empty;
+            }
+            
+            return ip;
+        }
+
+        private static bool IsIP(string ip)
+        {
+            return IPAddress.TryParse(ip, out var address);
         }
     }
 }

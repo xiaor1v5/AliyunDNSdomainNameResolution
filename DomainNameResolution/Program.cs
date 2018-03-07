@@ -21,10 +21,8 @@ namespace DomainNameResolution
             configuration.GetSection("DomainRecordOptions").Bind(domainRecordOptions);
 
             DomainRecord domainRecord = new DomainRecord(domainRecordOptions);
-            int a = 0;
             while (true)
             {
-                Console.WriteLine(++a);
                 await domainRecord.CheckAndModify();
                 Thread.Sleep(30000);
             }
